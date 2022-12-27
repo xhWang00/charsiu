@@ -16,6 +16,7 @@ router.post("/payments", async (req, res) => {
             amount: req.body.amount,
             comment: req.body.comment,
             date: req.body.date,
+            unitId: req.body.unitId,
             isDeposit: req.body.isDeposit
         });
         await payment.save();
@@ -43,6 +44,7 @@ router.patch("/payments/:id", async (req, res) => {
         payment.amount = req.body.amount ? req.body.amount : payment.amount;
         payment.comment = req.body.comment ? req.body.comment : payment.comment;
         payment.date = req.body.date ? req.body.date : payment.date;
+        payment.unitId = req.body.unitId ? req.body.unitId : payment.unitId;
         payment.isDeposit = req.body.isDeposit ? req.body.isDeposit : payment.isDeposit;
 
         await payment.save();

@@ -4,6 +4,7 @@ const schema = mongoose.Schema({
     amount: Number,
     comment: String,
     date: Date,
+    unitId: mongoose.Schema.Types.ObjectId,
     isDeposit: Boolean
 });
 
