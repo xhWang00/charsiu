@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const CONFIG = require("./config");
 const routes = require("./routes");
+const cors = require("cors");
 
 // Prevent "(node:5969) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7."
 mongoose.set("strictQuery", false);
@@ -11,13 +12,7 @@ mongoose
     .then(() => {
         const app = express();
 
-	// Allowing CORS
-	app.use((req, res, next) => {
-            res.header("Access-Control-Allow-Origin", "*");
-	    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	    next();
-	});
-
+	app.use(cors());
         app.use(express.json());
         app.use("/api", routes);
 
