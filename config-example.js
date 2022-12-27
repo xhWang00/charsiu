@@ -1,3 +1,5 @@
-module.exports({
-    DBURL: ""
-});
+let config = {}
+
+config.DBURL = '';
+
+module.exports = config;

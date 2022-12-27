@@ -1,11 +1,17 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const CONFIG = require("./config.js");
 
-const app = express();
+// Prevent "(node:5969) [MONGOOSE] DeprecationWarning: Mongoose: the `strictQuery` option will be switched back to `false` by default in Mongoose 7."
+mongoose.set("strictQuery", false);
+// Connect to MongoDB
+mongoose
+    .connect(CONFIG.DBURL, {useNewUrlParser: true})
+    .then(() => {
+        const app = express();
 
-app.get('/', (req, res) => {
-    res.send("Hello world");
-});
+        app.listen(8000, () => {
+            console.log("Server is running at port 8000.");
+        });
+    });
 
-app.listen(8000, () => {
-    console.log("Server is running at port 8000.");
-});
