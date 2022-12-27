@@ -57,4 +57,14 @@ router.patch("/units/:id", async (req, res) => {
     }
 });
 
+router.delete("/units/:id", async (req, res) => {
+    try {
+        await Unit.deleteOne({ _id: req.params.id });
+        res.status(204).send();
+    } catch {
+        res.status(404);
+        res.send({error: "Unit doesn't exist!."});
+    }
+});
+
 module.exports = router;
