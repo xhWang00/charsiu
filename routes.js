@@ -3,6 +3,68 @@ const Unit = require("./models/Unit");
 const Payment = require("./models/Payment");
 const router = express.Router();
 
+
+
+router.get("/payments", async (req, res) => {
+    const payments = await Payment.find()
+    res.send(payments);
+});
+
+router.post("/payments", async (req, res) => {
+    try {
+        const payment = new Payment({
+            amount: req.body.amount,
+            comment: req.body.comment,
+            date: req.body.date,
+            isDeposit: req.body.isDeposit
+        });
+        await payment.save();
+        res.send(payment);
+    } catch {
+        res.status(400);
+        res.send({error: "The payment number already exists!"});
+    }
+});
+
+router.get("/payments/:id", async (req, res) => {
+    try {
+        const payment = await Payment.findOne({ _id: req.params.id });
+        res.send(payment);
+    } catch {
+        res.status(404);
+        res.send({error: "Payment doesn't exist!"});
+    }
+});
+
+router.patch("/payments/:id", async (req, res) => {
+    try {
+        const payment = await Payment.findOne({ _id: req.params.id });
+
+        payment.amount = req.body.amount ? req.body.amount : payment.amount;
+        payment.comment = req.body.comment ? req.body.comment : payment.comment;
+        payment.date = req.body.date ? req.body.date : payment.date;
+        payment.isDeposit = req.body.isDeposit ? req.body.isDeposit : payment.isDeposit;
+
+        await payment.save();
+        res.send(payment);
+    } catch {
+        res.status(404);
+        res.send({error: "Payment doesn't exist!."});
+    }
+});
+
+router.delete("/payments/:id", async (req, res) => {
+    try {
+        await Payment.deleteOne({ _id: req.params.id });
+        res.status(204).send();
+    } catch {
+        res.status(404);
+        res.send({error: "Payment doesn't exist!."});
+    }
+});
+
+
+
 router.get("/units", async (req, res) => {
     const units = await Unit.find()
     res.send(units);
@@ -23,7 +85,7 @@ router.post("/units", async (req, res) => {
         res.send(unit);
     } catch {
         res.status(400);
-        res.send({error: "The unite number already exists!"});
+        res.send({error: "This unit number already exists!"});
     }
 });
 
@@ -66,5 +128,7 @@ router.delete("/units/:id", async (req, res) => {
         res.send({error: "Unit doesn't exist!."});
     }
 });
+
+
 
 module.exports = router;

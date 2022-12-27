@@ -4,8 +4,15 @@ curl http://localhost:8000/api/units -X POST -H "Content-Type: application/json"
 
 curl http://localhost:8000/api/units -X POST -H "Content-Type: application/json" -d '{"unitNum": 3, "tenant": "Test Test", "BRBA": "2/1", "rent": 1600, "deposit": 300, "remoteControllDeposit": 0, "moveinDate": "2022-12-27T01:10:56.701Z"}'
 
-
-
-
 // Testing update
 curl http://localhost:8000/api/units/63aa4631766ec95d92eabca6 -X PATCH -H "Content-Type: application/json" -d '{"unitNum": 3, "tenant": "Not Test", "BRBA": "2/1", "rent": 0, "deposit": 0, "remoteControllDeposit": 10, "moveinDate": "2022-12-27T01:10:56.701Z"}'
+
+curl http://localhost:8000/api/units/63aa4f219f1128e34dc1510a -X PATCH -H "Content-Type: application/json" -d '{"unitNum": 9, "tenant": "Nine", "BRBA": "99/99", "rent": 99, "deposit": 999, "remoteControllDeposit": 9999, "moveinDate": "2022-12-27T02:13:24.842Z"}'
+
+
+
+
+
+curl http://localhost:8000/api/payments -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "comment": "New payment", "date": "2022-12-27T02:04:08.243Z", "isDeposit": true}'
+
+curl http://localhost:8000/api/payments/63aa530b97d1932f98d0d921 -X PATCH -H "Content-Type: application/json" -d '{"amount":10, "comment":"This is not a rent","date":"1999-12-27T02:04:08.243Z","isDeposit":true}'
