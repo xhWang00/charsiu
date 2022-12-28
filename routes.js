@@ -80,7 +80,7 @@ router.post("/units", async (req, res) => {
             BRBA: req.body.BRBA,
             rent: req.body.rent,
             deposit: req.body.deposit,
-            remoteControllDeposit: req.body.remoteControllDeposit,
+            remoteControlDeposit: req.body.remoteControlDeposit,
             moveinDate: req.body.moveinDate
         });
         await unit.save();
@@ -110,7 +110,7 @@ router.patch("/units/:id", async (req, res) => {
         unit.BRBA = req.body.BRBA ? req.body.BRBA : unit.BRBA;
         unit.rent = req.body.rent ? req.body.rent : unit.rent;
         unit.deposit = req.body.deposit ? req.body.deposit : unit.deposit;
-        unit.remoteControllDeposit = req.body.remoteControllDeposit ? req.body.remoteControllDeposit : unit.remoteControllDeposit;
+        unit.remoteControlDeposit = req.body.remoteControlDeposit ? req.body.remoteControlDeposit : unit.remoteControlDeposit;
         unit.moveinDate = req.body.moveinDate ? req.body.moveinDate : unit.moveinDate;
 
         await unit.save();

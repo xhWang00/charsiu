@@ -6,7 +6,7 @@ const schema = mongoose.Schema({
     BRBA: String,
     rent: Number,
     deposit: Number,
-    remoteControllDeposit: Number,
+    remoteControlDeposit: Number,
     moveinDate: Date
 });
 
