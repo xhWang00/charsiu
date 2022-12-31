@@ -69,10 +69,23 @@ router.delete("/payments/:id", async (req, res) => {
     }
 });
 
-router.get('/payments/byDate/:unitId/:year/:month', async (req, res) => {
+router.get('/payments/byID/:unitId/:year/:month', async (req, res) => {
     try {
         const payment = await Payment.find({
             unitId: req.params.unitId,
+            year: req.params.year,
+            month: req.params.month
+        });
+        res.send(payment);
+    } catch {
+        res.status(404);
+        res.send({error: "Payment doesn't exist!"});
+    }
+});
+
+router.get('/payments/byDate/:year/:month', async (req, res) => {
+    try {
+        const payment = await Payment.find({
             year: req.params.year,
             month: req.params.month
         });
