@@ -15,7 +15,8 @@ router.post("/payments", async (req, res) => {
         const payment = new Payment({
             amount: req.body.amount,
             comment: req.body.comment,
-            date: req.body.date,
+            year: req.body.date.getFullYear(),
+            month: (req.body.date.getMonth() + 1),
             unitId: req.body.unitId,
             isDeposit: req.body.isDeposit
         });
@@ -43,7 +44,8 @@ router.patch("/payments/:id", async (req, res) => {
 
         payment.amount = req.body.amount ? req.body.amount : payment.amount;
         payment.comment = req.body.comment ? req.body.comment : payment.comment;
-        payment.date = req.body.date ? req.body.date : payment.date;
+        payment.year = req.body.date ? req.body.date.getFullYear() : payment.year;
+        payment.month = req.body.date ? (req.body.date.getMonth() + 1) : payment.month;
         payment.unitId = req.body.unitId ? req.body.unitId : payment.unitId;
         payment.isDeposit = req.body.isDeposit ? req.body.isDeposit : payment.isDeposit;
 
@@ -62,6 +64,20 @@ router.delete("/payments/:id", async (req, res) => {
     } catch {
         res.status(404);
         res.send({error: "Payment doesn't exist!."});
+    }
+});
+
+router.get('/payments/byDate/:unitId/:year/:month', async (req, res) => {
+    try {
+        const payment = await Payment.find({
+            unitId: req.params.unitId,
+            year: req.params.year,
+            month: req.params.month
+        });
+        res.send(payment);
+    } catch {
+        res.status(404);
+        res.send({error: "Payment doesn't exist!"});
     }
 });
 

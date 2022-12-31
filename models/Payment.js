@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema({
     amount: Number,
     comment: String,
-    date: Date,
+    year: Number,
+    month: Number,
     unitId: mongoose.Schema.Types.ObjectId,
     isDeposit: Boolean
 });
