@@ -17,6 +17,7 @@ router.post("/payments", async (req, res) => {
             comment: req.body.comment,
             year: req.body.date.getFullYear(),
             month: req.body.date.getMonth(),
+            day: req.body.date.getDate(),
             unitId: req.body.unitId,
             isDeposit: req.body.isDeposit
         });
@@ -46,6 +47,7 @@ router.patch("/payments/:id", async (req, res) => {
         payment.comment = req.body.comment ? req.body.comment : payment.comment;
         payment.year = req.body.date ? req.body.date.getFullYear() : payment.year;
         payment.month = req.body.date ? req.body.date.getMonth() : payment.month;
+        payment.day = req.body.date ? req.body.date.getDate() : payment.day;
         payment.unitId = req.body.unitId ? req.body.unitId : payment.unitId;
         payment.isDeposit = req.body.isDeposit ? req.body.isDeposit : payment.isDeposit;
 

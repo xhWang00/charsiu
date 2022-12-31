@@ -5,6 +5,7 @@ const schema = mongoose.Schema({
     comment: String,
     year: Number,
     month: Number,
+    day: Number,
     unitId: mongoose.Schema.Types.ObjectId,
     isDeposit: Boolean
 });
