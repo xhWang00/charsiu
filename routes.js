@@ -15,17 +15,18 @@ router.post("/payments", async (req, res) => {
         const payment = new Payment({
             amount: req.body.amount,
             comment: req.body.comment,
-            year: req.body.date.getFullYear(),
-            month: req.body.date.getMonth(),
-            day: req.body.date.getDate(),
+            year: req.body.year,
+            month: req.body.month,
+            day: req.body.day,
             unitId: req.body.unitId,
             isDeposit: req.body.isDeposit
         });
         await payment.save();
         res.send(payment);
-    } catch {
+    } catch (err) {
+	console.log(err);
         res.status(400);
-        res.send({error: "The payment number already exists!"});
+        res.send({error: err});
     }
 });
 
@@ -42,12 +43,13 @@ router.get("/payments/:id", async (req, res) => {
 router.patch("/payments/:id", async (req, res) => {
     try {
         const payment = await Payment.findOne({ _id: req.params.id });
+        let date = new Date('req.body.date');
 
         payment.amount = req.body.amount ? req.body.amount : payment.amount;
         payment.comment = req.body.comment ? req.body.comment : payment.comment;
-        payment.year = req.body.date ? req.body.date.getFullYear() : payment.year;
-        payment.month = req.body.date ? req.body.date.getMonth() : payment.month;
-        payment.day = req.body.date ? req.body.date.getDate() : payment.day;
+        payment.year = req.body.date ? req.body.year : payment.year;
+        payment.month = req.body.date ? req.body.month : payment.month;
+        payment.day = req.body.date ? req.body.day : payment.day;
         payment.unitId = req.body.unitId ? req.body.unitId : payment.unitId;
         payment.isDeposit = req.body.isDeposit ? req.body.isDeposit : payment.isDeposit;
 
