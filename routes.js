@@ -98,11 +98,10 @@ router.get('/payments/byDate/:year/:month', async (req, res) => {
     }
 });
 
-router.get('/payments/deposit/:unitId', async (req, res) => {
+router.get('/payments/deposit/all', async (req, res) => {
     try {
         const payment = await Payment.find({
             isDeposit: "true",
-            unitId: req.params.unitId
         });
         res.send(payment);
     } catch {
