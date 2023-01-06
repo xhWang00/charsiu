@@ -110,6 +110,19 @@ router.get('/payments/deposit/all', async (req, res) => {
     }
 });
 
+router.get('/bills/:unitId/:year', async (req, res) => {
+    try {
+        const payment = await Payment.find({
+            unitId: req.params.unitId,
+            year: req.params.year
+        }).sort({month: 1});
+        res.send(payment);
+    } catch {
+        res.status(404);
+        res.send({error: "Payment doesn't exist!"});
+    }
+});
+
 
 
 router.get("/units", async (req, res) => {
